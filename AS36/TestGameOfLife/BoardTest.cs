@@ -2,15 +2,21 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace TestGameOfLife
-{
-     
-    /// <summary>
-    ///This is a test class for BoardTest and is intended
-    ///to contain all BoardTest Unit Tests
-    ///</summary>
+namespace TestGameOfLife {
+
+  /// <summary>
+  ///This is a test class for BoardTest and is intended
+  ///to contain all BoardTest Unit Tests
+  ///</summary>
   [TestClass()]
   public class BoardTest {
+    Board.BoardEdit[] smallBoard = {
+                                  new Board.BoardEdit(0, 0, 1), 
+                                  new Board.BoardEdit(0, 1, 1), 
+                                  new Board.BoardEdit(1, 0, 1), 
+                                  new Board.BoardEdit(1, 1, null), 
+                                };
+        
     Board.BoardEdit[] bigBoard = {
                                   new Board.BoardEdit(0, 0, 0), 
                                   new Board.BoardEdit(0, 1, 1), 
@@ -29,7 +35,7 @@ namespace TestGameOfLife
                                   new Board.BoardEdit(3, 2, 0), 
                                   new Board.BoardEdit(3, 3, null), 
                                 };
-      
+
 
     private TestContext testContextInstance;
 
@@ -113,15 +119,7 @@ namespace TestGameOfLife
       Board target = new Board(size);
       Assert.AreEqual(size, target.Size);
     }
-    /// <summary>
-    ///A test for Board Constructor
-    ///</summary>
-    [TestMethod()]
-    public void BoardConstructorTestMax() {
-      uint size = uint.MaxValue; // Initialize board with an appropriate value
-      Board target = new Board(size);
-      Assert.AreEqual(size, target.Size);
-    }
+    
     /// <summary>
     ///A test for Board Constructor
     ///</summary>
@@ -138,14 +136,14 @@ namespace TestGameOfLife
     [TestMethod()]
     public void ChangeStatusTest() {
       uint size = 8; // Initialize to an appropriate size
-      Board target = new Board(size); 
+      Board target = new Board(size);
       Board.BoardEdit[] edits = {
                                   new Board.BoardEdit(1, 1, 1), // should change state
                                   new Board.BoardEdit(1, 2, 0), // should change state
                                   new Board.BoardEdit(2, 3, 3), // should not change state
                                   new Board.BoardEdit(3, 1, null), // should not change state
                                   new Board.BoardEdit(9, 6, 4), // out of range
-                                }; 
+                                };
       target.ChangeStatus(edits);
       Assert.AreEqual(1, target[1, 1]);
       Assert.AreEqual(0, target[1, 2]);
@@ -160,16 +158,16 @@ namespace TestGameOfLife
     [TestMethod()]
     public void GenerateRandomBoardTest() {
       uint size = 20; // Initialize to an appropriate size
-      Board target = new Board(size); 
+      Board target = new Board(size);
       target.GenerateRandomBoard();
-      
+
       bool n = false;
       bool l = false;
       bool d = false;
       bool fail = false;
-      for(uint i = 0; i<size; i++){
-        for(uint j = 0; j<size; j++){
-          switch(target[i,j]){
+      for (uint i = 0; i < size; i++) {
+        for (uint j = 0; j < size; j++) {
+          switch (target[i, j]) {
             case null:
               n = true;
               break;
@@ -184,7 +182,7 @@ namespace TestGameOfLife
               break;
           }
           if (fail) break;
-          if(n && l && d) break;
+          if (n && l && d) break;
         }
       }
       Assert.IsTrue(n && l && d); // all posible values have been reached
@@ -197,14 +195,14 @@ namespace TestGameOfLife
     [TestMethod()]
     public void NextDayTest() {
       uint size = 4; //  Initialize to an appropriate size
-      Board target = new Board(size); 
-      
+      Board target = new Board(size);
+
       // Set board
       target.ChangeStatus(bigBoard);
 
       // Next day
       target.NextDay();
-      
+
       // Check
       Assert.AreEqual(1, target[0, 0]);
       Assert.AreEqual(1, target[0, 1]);
@@ -236,23 +234,19 @@ namespace TestGameOfLife
 
       for (int i = 0; i < testrun; i++) {
         // Set board
-        Board.BoardEdit[] edits = {
-                                  new Board.BoardEdit(0, 0, 1), 
-                                  new Board.BoardEdit(0, 1, 1), 
-                                  new Board.BoardEdit(1, 0, 1), 
-                                  new Board.BoardEdit(1, 1, null), 
-                                };
-        target.ChangeStatus(edits);
+        target.ChangeStatus(smallBoard);
 
         // Next day
         target.NextDay();
 
         // Check
-        if (target[0, 0] == null) { zombie = true; break; }
+        if (target[0, 0] == null || target[1, 0] == null || target[0, 1] == null) {
+          zombie = true; break;
+        }
       }
       Assert.AreEqual(true, target[0, 0] == null || target[0, 0] == 1);
-      Assert.AreEqual(0, target[0, 1]);
-      Assert.AreEqual(0, target[1, 0]);
+      Assert.AreEqual(true, target[0, 1] == null || target[0, 1] == 1);
+      Assert.AreEqual(true, target[1, 0] == null || target[1, 0] == 1);
       Assert.AreEqual(null, target[1, 1]);
       Assert.IsTrue(zombie);
     }
@@ -264,7 +258,7 @@ namespace TestGameOfLife
     [DeploymentItem("GameOfLife.exe")]
     public void getNeighborsTest() {
       PrivateObject param0 = new PrivateObject(new Board(4)); // Initialize to an appropriate size
-      Board_Accessor target = new Board_Accessor(param0); 
+      Board_Accessor target = new Board_Accessor(param0);
       // Set board
       target.ChangeStatus(bigBoard);
       bool zombie;
@@ -308,15 +302,13 @@ namespace TestGameOfLife
     [TestMethod()]
     [DeploymentItem("GameOfLife.exe")]
     public void withInBoardTest() {
-      PrivateObject param0 = null; // TODO: Initialize to an appropriate value
-      Board_Accessor target = new Board_Accessor(param0); // TODO: Initialize to an appropriate value
-      uint col = 0; // TODO: Initialize to an appropriate value
-      uint row = 0; // TODO: Initialize to an appropriate value
-      bool expected = false; // TODO: Initialize to an appropriate value
-      bool actual;
-      actual = target.withInBoard(col, row);
-      Assert.AreEqual(expected, actual);
-      Assert.Inconclusive("Verify the correctness of this test method.");
+      PrivateObject param0 = new PrivateObject(new Board(8)); // Initialize to an appropriate value
+      Board_Accessor target = new Board_Accessor(param0); 
+      
+      Assert.IsTrue(target.withInBoard(0,0));
+      Assert.IsTrue(target.withInBoard(7, 7));
+      Assert.IsFalse(target.withInBoard(8, 8));
+      Assert.IsFalse(target.withInBoard(80, 80));
     }
 
     /// <summary>
@@ -324,13 +316,14 @@ namespace TestGameOfLife
     ///</summary>
     [TestMethod()]
     public void ItemTest() {
-      uint size = 0; // TODO: Initialize to an appropriate value
-      Board target = new Board(size); // TODO: Initialize to an appropriate value
-      uint col = 0; // TODO: Initialize to an appropriate value
-      uint row = 0; // TODO: Initialize to an appropriate value
-      Nullable<int> actual;
-      actual = target[col, row];
-      Assert.Inconclusive("Verify the correctness of this test method.");
+      uint size = 2; // Initialize to an appropriate size
+      Board target = new Board(size); 
+      target.ChangeStatus(smallBoard);
+
+      Assert.AreEqual(1, target[0, 0]);
+      Assert.AreEqual(1, target[0, 1]);
+      Assert.AreEqual(1, target[1, 0]);
+      Assert.AreEqual(null, target[1, 1]);
     }
 
     /// <summary>
@@ -338,11 +331,9 @@ namespace TestGameOfLife
     ///</summary>
     [TestMethod()]
     public void SizeTest() {
-      uint size = 0; // TODO: Initialize to an appropriate value
-      Board target = new Board(size); // TODO: Initialize to an appropriate value
-      uint actual;
-      actual = target.Size;
-      Assert.Inconclusive("Verify the correctness of this test method.");
+      uint size = 5; // Initialize to an appropriate size
+      Board target = new Board(size); 
+      Assert.AreEqual(size, target.Size);
     }
   }
 }
