@@ -94,16 +94,27 @@ namespace GameOfLife
             }
         }
 
+        /// <summary>
+        /// Generate a Random Board
+        /// </summary>
         public void GenerateRandomBoard()
         {
             GenerateRandom(new Random());    
         }
 
+        /// <summary>
+        /// Ganerate a Random Board with the seed
+        /// </summary>
+        /// <param name="Seed">Seed</param>
         public void GenerateRandomBoard(int Seed)
         {
             GenerateRandom(new Random(Seed));
         }
 
+        /// <summary>
+        /// Generate the random board, called by public GenerateRandomBoard
+        /// </summary>
+        /// <param name="random">The Random used</param>
         private void GenerateRandom(Random random)
         {
             for (uint col = 0; col < size; col++)
@@ -118,7 +129,9 @@ namespace GameOfLife
             }
         }
 
-
+        /// <summary>
+        /// Struct used to edit a cell in board by calling ChangeStatus
+        /// </summary>
         public struct BoardEdit
         {
             public uint col, row;
@@ -132,6 +145,13 @@ namespace GameOfLife
             }
         }
 
+        /// <summary>
+        /// Get the number of living cell that is neighbors(also diagonal neighbors) to the selected cell and if there is a zombie.
+        /// </summary>
+        /// <param name="col">col</param>
+        /// <param name="row">row</param>
+        /// <param name="zombie">Is </param>
+        /// <returns>Number of living cells</returns>
         private uint getNeighbors(uint col, uint row, out bool zombie)
         {
             if (withInBoard(col, row))
@@ -198,6 +218,12 @@ namespace GameOfLife
             }
         }
 
+        /// <summary>
+        /// Is the coordinat a valid cell in the board
+        /// </summary>
+        /// <param name="col">col</param>
+        /// <param name="row">row</param>
+        /// <returns>Is coordinat on board</returns>
         private bool withInBoard(uint col, uint row)
         {
             return col >= 0 && col < size && row >= 0 && row < size;
