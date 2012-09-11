@@ -81,7 +81,7 @@ namespace GameOfLife
         }
 
         /// <summary>
-        /// Change the cells using BoardEdit struct, if is incorrect then the changes will not be applied.
+        /// Change the cells using BoardEdit struct, if the struct is incorrect then the changes will not be applied and will <b>not</b> throw an exception.
         /// </summary>
         /// <param name="edits"></param>
         public void ChangeStatus(params BoardEdit[] edits)
