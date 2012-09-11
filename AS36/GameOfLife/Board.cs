@@ -35,9 +35,10 @@ namespace GameOfLife
         /// <param name="col"></param>
         /// <param name="row"></param>
         /// <returns>The cell as a nullable int, null - zombie, 0 - dead, 1 - alive</returns>
+        /// <exception cref="IndexOutOfRangeException">IndexOutOfRangeException</exception>
         public int? this[uint col, uint row]
         {
-            get { return board[col, row]; }
+            get { return board[col, row]; }  
         }
 
         /// <summary>
