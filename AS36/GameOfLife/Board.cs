@@ -11,23 +11,38 @@ namespace GameOfLife
         private int?[,] board;
         private uint size;
 
+        /// <summary>
+        /// Creates a new Board with the size, where all cells are zombies
+        /// </summary>
+        /// <param name="size">size of both dimensions</param>
         public Board(uint size)
         {
             board = new int?[size, size];
             this.size = size;
         }
 
-
+        /// <summary>
+        /// The size of the board
+        /// </summary>
         public uint Size
         {
             get { return size; }
         }
 
+        /// <summary>
+        /// Get the cell from col and row.
+        /// </summary>
+        /// <param name="col"></param>
+        /// <param name="row"></param>
+        /// <returns>The cell as a nullable int, null - zombie, 0 - dead, 1 - alive</returns>
         public int? this[uint col, uint row]
         {
             get { return board[col, row]; }
         }
 
+        /// <summary>
+        /// Run one cycle.
+        /// </summary>
         public void NextDay()
         {
             List<BoardEdit> changes = new List<BoardEdit>();
@@ -64,6 +79,10 @@ namespace GameOfLife
             ChangeStatus(changes.ToArray());
         }
 
+        /// <summary>
+        /// Change the cells using BoardEdit struct, if is incorrect then the changes will not be applied.
+        /// </summary>
+        /// <param name="edits"></param>
         public void ChangeStatus(params BoardEdit[] edits)
         {
             foreach (BoardEdit edit in edits)
