@@ -185,7 +185,7 @@ namespace GameOfLife
                     if (board[col + 1, row] == null) { zombie = true; }
                     else if (board[col + 1, row] == 1) { neighbors++; }
 
-                    if (row > 1)
+                    if (row >= 1)
                     {
                         if (board[col + 1, row - 1] == null) { zombie = true; }
                         else if (board[col + 1, row - 1] == 1) { neighbors++; }
@@ -199,7 +199,7 @@ namespace GameOfLife
                 }
                 
                 //Up/Down
-                if (row > 1)
+                if (row >= 1)
                 {
                     if (board[col, row - 1] == null) { zombie = true; }
                     else if (board[col, row - 1] == 1) { neighbors++; }
