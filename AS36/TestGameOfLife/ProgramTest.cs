@@ -58,26 +58,5 @@ namespace TestGameOfLife
     //}
     //
     #endregion
-
-
-    /// <summary>
-    ///A test for Program Constructor
-    ///</summary>
-    [TestMethod()]
-    public void ProgramConstructorTest() {
-      Program target = new Program();
-      Assert.Inconclusive("TODO: Implement code to verify target");
-    }
-
-    /// <summary>
-    ///A test for Main
-    ///</summary>
-    [TestMethod()]
-    [DeploymentItem("GameOfLife.exe")]
-    public void MainTest() {
-      string[] args = null; // TODO: Initialize to an appropriate value
-      Program_Accessor.Main(args);
-      Assert.Inconclusive("A method that does not return a value cannot be verified.");
-    }
   }
 }
