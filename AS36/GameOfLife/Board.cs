@@ -35,9 +35,10 @@ namespace GameOfLife
         /// <param name="col"></param>
         /// <param name="row"></param>
         /// <returns>The cell as a nullable int, null - zombie, 0 - dead, 1 - alive</returns>
+        /// <exception cref="IndexOutOfRangeException">IndexOutOfRangeException</exception>
         public int? this[uint col, uint row]
         {
-            get { return board[col, row]; }
+            get { return board[col, row]; }  
         }
 
         /// <summary>
@@ -80,7 +81,7 @@ namespace GameOfLife
         }
 
         /// <summary>
-        /// Change the cells using BoardEdit struct, if is incorrect then the changes will not be applied.
+        /// Change the cells using BoardEdit struct, if the struct is incorrect then the changes will not be applied and will <b>not</b> throw an exception.
         /// </summary>
         /// <param name="edits"></param>
         public void ChangeStatus(params BoardEdit[] edits)
@@ -184,7 +185,7 @@ namespace GameOfLife
                     if (board[col + 1, row] == null) { zombie = true; }
                     else if (board[col + 1, row] == 1) { neighbors++; }
 
-                    if (row > 1)
+                    if (row >= 1)
                     {
                         if (board[col + 1, row - 1] == null) { zombie = true; }
                         else if (board[col + 1, row - 1] == 1) { neighbors++; }
@@ -198,7 +199,7 @@ namespace GameOfLife
                 }
                 
                 //Up/Down
-                if (row > 1)
+                if (row >= 1)
                 {
                     if (board[col, row - 1] == null) { zombie = true; }
                     else if (board[col, row - 1] == 1) { neighbors++; }
