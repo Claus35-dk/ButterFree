@@ -38,6 +38,8 @@ namespace CollectionPerformanceTest
             }
             Console.WriteLine("List total time: " );
 
+            
+
             SortedDictionary<int, int> sortedDictionary = new SortedDictionary<int, int>();
             absolutenr = 0;
             long[] sortedtimes = new long[TestNumbers];
@@ -73,7 +75,7 @@ namespace CollectionPerformanceTest
                 Console.WriteLine("Dictionary time(" + dictionary.Count + "): " + dictiontime);
             }
 
-
+            
             SaveAsExcel(listtimes,sortedtimes,dictiontimes);
             
 
@@ -89,11 +91,13 @@ namespace CollectionPerformanceTest
             Excel.Workbook xlWorkBook;
             Excel.Worksheet xlWorkSheet;
             Excel.Worksheet xlWorkSheet2;
+            Excel.Worksheet xlWorkSheet3;
             object misValue = System.Reflection.Missing.Value;
 
             xlApp = new Excel.Application();
             xlWorkBook = xlApp.Workbooks.Add(misValue);
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+            xlWorkSheet.Name = "Add Test";
 
             xlWorkSheet.Cells[1, 1] = "Test Count";
             xlWorkSheet.Cells[1, 2] = "List";
@@ -123,12 +127,24 @@ namespace CollectionPerformanceTest
 
             //WORKSHEET2
             xlWorkSheet2 = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(2);
+            xlWorkSheet2.Name = "Contain Test";
 
             xlWorkSheet2.Cells[1, 1] = "Test Count";
             xlWorkSheet2.Cells[1, 2] = "List";
             xlWorkSheet2.Cells[1, 3] = "Sorted Dictionary";
             xlWorkSheet2.Cells[1, 4] = "Dictionary";
 
+
+            //WORKSHEET3
+            xlWorkSheet3 = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(3);
+            xlWorkSheet3.Name = "Binary Search Test";
+
+            xlWorkSheet3.Cells[1, 1] = "Test Count";
+            xlWorkSheet3.Cells[1, 2] = "List";
+            xlWorkSheet3.Cells[1, 3] = "Dictionary";
+            
+
+            //Save and cleanup
             xlWorkBook.SaveAs(Directory.GetCurrentDirectory() + "\\csharp.net-informations.xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
             xlWorkBook.Close(true, misValue, misValue);
             xlApp.Quit();
