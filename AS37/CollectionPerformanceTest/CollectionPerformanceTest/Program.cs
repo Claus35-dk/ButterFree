@@ -17,29 +17,33 @@ namespace CollectionPerformanceTest
 
         static void Main(string[] args)
         {
-            
-
-
-            List<int> list = new List<int>();
             int absolutenr = 0;
             Stopwatch stopWatch = Stopwatch.StartNew();
+
+            #region List Tests
+
+            List<int> list = new List<int>();
             long[] listtimes = new long[TestNumbers];
             while (absolutenr < TestScale)
             {
                 stopWatch.Restart();
                 for (int i = 0; i < TestInterval; i++)
                 {
-                    list.Add(i);
+                    list.Add(absolutenr);
                     absolutenr++;
                 }
                 long listtime = stopWatch.ElapsedMilliseconds;
                 listtimes[absolutenr/TestInterval-1] = listtime;
                 Console.WriteLine("List time(" + absolutenr + "): " + listtime);
             }
-            Console.WriteLine("List total time: " );
 
-            
 
+
+            //Free up some memory
+            list = null;
+            #endregion
+
+            #region SortedDictionary Tests
             SortedDictionary<int, int> sortedDictionary = new SortedDictionary<int, int>();
             absolutenr = 0;
             long[] sortedtimes = new long[TestNumbers];
@@ -56,9 +60,10 @@ namespace CollectionPerformanceTest
                 Console.WriteLine("SortedDictionary time(" + sortedDictionary.Count + "): " + sortedTime);
             }
 
+            #endregion
+
+            #region Dictionary Tests
             long[] dictiontimes = new long[TestNumbers];
-
-
             Dictionary<int, int> dictionary = new Dictionary<int, int>();
             absolutenr = 0;
             long[] diciontimes = new long[TestNumbers];
@@ -75,10 +80,12 @@ namespace CollectionPerformanceTest
                 Console.WriteLine("Dictionary time(" + dictionary.Count + "): " + dictiontime);
             }
 
-            
-            SaveAsExcel(listtimes,sortedtimes,dictiontimes);
-            
+            #endregion
 
+            SaveAsExcel(listtimes,sortedtimes,dictiontimes);
+
+
+            Console.WriteLine("Press any key to close");
             Console.Read();
         }
 
@@ -96,6 +103,8 @@ namespace CollectionPerformanceTest
 
             xlApp = new Excel.Application();
             xlWorkBook = xlApp.Workbooks.Add(misValue);
+
+            //WORKSHEET Add Test
             xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
             xlWorkSheet.Name = "Add Test";
 
@@ -125,7 +134,7 @@ namespace CollectionPerformanceTest
             }
 
 
-            //WORKSHEET2
+            //WORKSHEET2 Contain Test
             xlWorkSheet2 = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(2);
             xlWorkSheet2.Name = "Contain Test";
 
@@ -135,9 +144,9 @@ namespace CollectionPerformanceTest
             xlWorkSheet2.Cells[1, 4] = "Dictionary";
 
 
-            //WORKSHEET3
+            //WORKSHEET3 Binary Contain Test
             xlWorkSheet3 = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(3);
-            xlWorkSheet3.Name = "Binary Search Test";
+            xlWorkSheet3.Name = "Binary Contain Test";
 
             xlWorkSheet3.Cells[1, 1] = "Test Count";
             xlWorkSheet3.Cells[1, 2] = "List";
