@@ -25,3 +25,14 @@ obj/
 [Rr]elease*/
 _ReSharper*/
 [Tt]est[Rr]esult*
+*.aux
+*.log
+*.toc
+*.dvi
+*.bat
+*.pdf
+.clean
+*.latexmain
+*.bbl
+*.blg
+*.ps
