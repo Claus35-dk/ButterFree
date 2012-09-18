@@ -63,14 +63,18 @@ namespace TextSearch {
     /// </summary>
     struct RegExPattern {
       public string GroupName { set; get; }
-      public string RegEx { set; get; }
+      private string _RegEx;
+      public string RegEx {
+        get { return "(?<" + GroupName + ">" + _RegEx + ")"; }
+        set { _RegEx = value; }
+      }
       public ConsoleColor BgColor { set; get; }
       public ConsoleColor FgColor { set; get; }
 
       public RegExPattern(string GroupName, string RegEx, ConsoleColor BgColor, ConsoleColor FgColor)
         : this() {
         this.GroupName = GroupName;
-        this.RegEx = "(?<" + GroupName + ">" + RegEx + ")";
+        this.RegEx = RegEx;
         this.BgColor = BgColor;
         this.FgColor = FgColor;
       }
@@ -78,7 +82,7 @@ namespace TextSearch {
       public RegExPattern(string GroupName, string RegEx)
         : this() {
         this.GroupName = GroupName;
-        this.RegEx = "(?<" + GroupName + ">" + RegEx + ")";
+        this.RegEx = RegEx;
         this.BgColor = ConsoleColor.Yellow;
         this.FgColor = ConsoleColor.Black;
       }
