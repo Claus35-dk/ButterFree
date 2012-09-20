@@ -1,0 +1,27 @@
+\section{Operation Contract Template}
+  \subsection{OCT 1}
+    \begin{table*}[ht]\centering
+      \ra{1.3}
+      \begin{tabularx}{\textwidth}{@{}|rX|@{}}\hline
+        \textbf{Operation:}        & shareAppointment(appointment, attendee) \\
+        \textbf{Cross references:} & Primary flow in SSD diagram\\
+        \textbf{Preconditions:}    & User is registered in our system.\newline
+                                     Appointment must exist\newline
+                                     Other users calendar must be registered in our system \\
+        \textbf{Postconditions:}   & - OtherCalendar now has the appointment \newline
+                                     - SomeCalendars appointment is synchronized with the appointment in OtherCalendar \newline
+                                     - The appointment now has the status of the attendees \\\hline
+      \end{tabularx}
+    \end{table*}
+  \subsection{OCT 2}
+    \begin{table*}[ht]\centering
+      \ra{1.3}
+      \begin{tabularx}{\textwidth}{@{}|rX|@{}}\hline
+        \textbf{Operation:}        & getAnswer()\\
+        \textbf{Cross references:} & Secondary flow in SSD diagram \\
+        \textbf{Preconditions:}    & There is an appointment that needs monitoring \newline
+                                     (For status changes or synchronization)\\
+        \textbf{Postconditions:}   & - The appointment in the users calendar is updated \newline 
+                                     - The other attendees has been notified \\\hline
+      \end{tabularx}
+    \end{table*}
