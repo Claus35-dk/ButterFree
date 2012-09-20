@@ -7,6 +7,13 @@ namespace BenchmarkSystem
 {
     class Job
     {
+      public Job(Owner owner, byte CPU, int ExpectedRuntime) {
+        if (CPU > 7) throw new ArgumentOutOfRangeException("No more than 6 CPU's available. Tried to add job with: " + CPU);
+        this.owner = owner;
+        this.CPU = CPU;
+        this.ExpectedRuntime = ExpectedRuntime;
+        State = JobState.Created;
+      }
         public Owner owner
         {
             get;
@@ -25,7 +32,7 @@ namespace BenchmarkSystem
             set;
         }
 
-        public string State
+        internal JobState State
         {
             get;
             set;
@@ -37,4 +44,12 @@ namespace BenchmarkSystem
             set;
         }
     }
+
+    enum JobState {
+      Created,
+      Queued,
+      Running,
+      Succesfull,
+      Failed
+    };
 }
