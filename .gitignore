@@ -12,6 +12,8 @@ Thumbs.db
 *.suo
 *.sln.docstates
 *.tlb
+*.zip
+*.rar
 *.tlh
 *.bak
 *.cache
