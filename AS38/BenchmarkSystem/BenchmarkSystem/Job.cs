@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BenchmarkSystem
 {
-    class Job
+    public class Job
     {
       public Job(Owner owner, byte CPU, int ExpectedRuntime) {
         if (CPU > 7) throw new ArgumentOutOfRangeException("No more than 6 CPU's available. Tried to add job with: " + CPU);
@@ -42,6 +42,14 @@ namespace BenchmarkSystem
         {
             get;
             set;
+        }
+
+        public long timestamp {
+          private set;
+          public get;
+        }
+        public void SetTimestamp() {
+          timestamp = System.DateTime.Now.Millisecond;
         }
     }
 

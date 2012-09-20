@@ -9,9 +9,9 @@ namespace BenchmarkSystem
     {
         public Logger(BenchmarkSystem benchmarkSystem)
         {
-            benchmarkSystem.JobSubmitted += new EventHandler<JobEventArgs>(benchmarkSystem_JobSubmitted);
-            benchmarkSystem.JobCancelled += new EventHandler<JobEventArgs>(benchmarkSystem_JobCancelled);
-            benchmarkSystem.JobRunning += new EventHandler<JobEventArgs>(benchmarkSystem_JobRunning);
+            benchmarkSystem.JobQueued += new EventHandler<JobEventArgs>(benchmarkSystem_JobSubmitted);
+            benchmarkSystem.JobRemoved += new EventHandler<JobEventArgs>(benchmarkSystem_JobCancelled);
+            benchmarkSystem.JobStarted += new EventHandler<JobEventArgs>(benchmarkSystem_JobRunning);
             benchmarkSystem.JobTerminated += new EventHandler<JobEventArgs>(benchmarkSystem_JobTerminated);
             benchmarkSystem.JobFailed += new EventHandler<JobEventArgs>(benchmarkSystem_JobFailed);
         }

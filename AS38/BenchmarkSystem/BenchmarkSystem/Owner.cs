@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BenchmarkSystem
 {
-    class Owner
+    public class Owner
     {
         public string Name
         {

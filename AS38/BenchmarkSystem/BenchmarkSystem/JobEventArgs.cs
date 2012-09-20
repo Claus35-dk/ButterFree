@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BenchmarkSystem
 {
-    class JobEventArgs : EventArgs
+    public class JobEventArgs : EventArgs
     {
         public JobEventArgs(Job job)
         {
