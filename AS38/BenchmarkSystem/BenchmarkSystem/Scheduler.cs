@@ -19,7 +19,7 @@ namespace BenchmarkSystem
 
         public Job PopJob()
         {
-            return null;
+            throw new NotImplementedException();
         }
     }
 }
