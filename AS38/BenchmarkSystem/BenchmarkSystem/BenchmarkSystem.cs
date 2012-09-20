@@ -27,7 +27,15 @@ namespace BenchmarkSystem
             scheduler.RemoveJob(job);
         }
 
+        public IList<Job> Status()
+        {
+            throw new NotImplementedException();
+        }
 
+        public void ExecuteAll()
+        {
+            throw new NotImplementedException();
+        }
 
         #region EventFunctions
 
